@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>镜像使用说明</title>
+    <title>使用说明</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -79,14 +79,14 @@
 </head>
 <body>
 <div class="header">
-    <h1>镜像使用说明</h1>
-    <a href="https://github.com/lixd/cloudflare-docker-proxy" target="_blank" class="github-link">
+    <h1>使用说明</h1>
+    <a href="https://github.com/RabbitJun/cloudflare-docker-proxy" target="_blank" class="github-link">
         <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="github-icon">
     </a>
 </div>
 <div class="container">
     <div class="content">
-        <p>为了加速 Docker 镜像拉取，你可以使用以下命令设置 registry mirror:</p>
+        <p>为了加速 Docker 镜像拉取，您可以使用以下命令设置 registry mirror:</p>
         <pre><code id="registry-config">sudo tee /etc/docker/daemon.json &lt;&lt;EOF
 {
     "registry-mirrors": ["https://{{host}}"]
@@ -118,7 +118,7 @@ docker pull ghcr.{{host}}/github/super-linter:latest  # 拉取 GitHub 容器镜�
 # docker pull docker.cloudsmith.io/public/repo/image:latest
 docker pull cloudsmith.{{host}}/public/repo/image:latest  # 拉取 Cloudsmith 镜像
 </code></pre>
-        <p>为了避免 Worker 用量耗尽，你可以手动 pull 镜像然后 re-tag 之后 push 至本地镜像仓库。</p>
+        <p>为了避免 Worker 用量耗尽，您可以手动 pull 镜像然后 re-tag 之后 push 至本地镜像仓库。</p>
     </div>
 </div>
 <div class="footer">
