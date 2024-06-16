@@ -1,3 +1,5 @@
+import DOCS from './help.html'
+
 addEventListener("fetch", (event) => {
   event.passThroughOnException();
   event.respondWith(handleRequest(event.request));
@@ -7,7 +9,7 @@ const dockerHub = "https://registry-1.docker.io";
 
 const routes = {
   // production
-  "docker.rbtstudio.cc": "https://registry-1.docker.io",
+  "docker.rbtstudio.cc": dockerHub,
   "quay.rbtstudio.cc": "https://quay.io",
   "gcr.rbtstudio.cc": "https://gcr.io",
   "k8s-gcr.rbtstudio.cc": "https://k8s.gcr.io",
@@ -16,7 +18,7 @@ const routes = {
   "cloudsmith.rbtstudio.cc": "https://docker.cloudsmith.io",
 
   // staging
-  "docker-staging.libcuda.so": dockerHub,
+  "docker-staging.rbtstudio.cc": dockerHub,
 };
 
 function routeByHosts(host) {
@@ -41,6 +43,15 @@ async function handleRequest(request) {
         status: 404,
       }
     );
+  }
+  // return docs
+  if (url.pathname === "/") {
+    return new Response(DOCS, {
+      status: 200,
+      headers: {
+        "content-type": "text/html"
+      }
+    });
   }
   const isDockerHub = upstream == dockerHub;
   const authorization = request.headers.get("Authorization");
@@ -151,16 +162,4 @@ async function fetchToken(wwwAuthenticate, scope, authorization) {
     headers.set("Authorization", authorization);
   }
   return await fetch(url, { method: "GET", headers: headers });
-}
-
-import DOCS from './help.html'
- 
-// return docs
-if (url.pathname === "/") {
-  return new Response(DOCS, {
-    status: 200,
-    headers: {
-      "content-type": "text/html"
-    }
-  });
 }
